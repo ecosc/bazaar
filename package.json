@@ -1,0 +1,37 @@
+{
+  "name": "bazaar-profile",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "build": "truffle compile",
+    "migrate:bscTestnet": "truffle migrate --network bscTestnet",
+    "verify:bscTestnet": "truffle run verify Bazaar --network bscTestnet"
+  },
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.16.8",
+    "@babel/core": "^7.16.12",
+    "@babel/plugin-transform-regenerator": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/register": "^7.16.9",
+    "babel-polyfill": "^6.26.0",
+    "chai": "^4.3.6",
+    "ethereum-waffle": "^3.4.0",
+    "ethers": "^5.5.3",
+    "mocha": "^9.2.0"
+  },
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^2.0.3",
+    "core-js": "2",
+    "dotenv": "^15.0.0",
+    "truffle": "^5.4.31",
+    "truffle-flattener": "^1.5.0",
+    "truffle-plugin-verify": "^0.5.21"
+  }
+}
