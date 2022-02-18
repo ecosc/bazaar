@@ -127,10 +127,21 @@ contract Bazaar is Ownable {
 
     constructor(address _profileContract) {
         profileContract = _profileContract;
-        allowedSourceAssets.push(SourceAsset("GOLD_OUNCE", false));
-        allowedSourceAssets.push(SourceAsset("SILVER_OUNCE", false));
-        allowedSourceAssets.push(SourceAsset("CARAT_GOLD_18", false));
-        allowedSourceAssets.push(SourceAsset("USDT", false));
+        allowedSourceAssets.push(SourceAsset('GOLD_OUNCE', false));
+        allowedSourceAssets.push(SourceAsset('SILVER_OUNCE', false));
+        allowedSourceAssets.push(SourceAsset('CARAT_GOLD_18', false));
+        allowedSourceAssets.push(SourceAsset('CARAT_GOLD_24', false));
+        allowedSourceAssets.push(SourceAsset('GOLD_MESGHAL', false));
+        allowedSourceAssets.push(SourceAsset('GOLD_MELTED_CASH', false));
+        allowedSourceAssets.push(SourceAsset('MELTED_BANKING_GOLD', false));
+        allowedSourceAssets.push(SourceAsset('MELTED_GOLD', false));
+        allowedSourceAssets.push(SourceAsset('GOLD_COIN_CASH', false));
+        allowedSourceAssets.push(SourceAsset('GOLD_COIN', false));
+        allowedSourceAssets.push(SourceAsset('USD', false));
+        allowedSourceAssets.push(SourceAsset('MANAT', false));
+        allowedSourceAssets.push(SourceAsset('DIRHAM', false));
+        allowedSourceAssets.push(SourceAsset('DINAR_IRAQI', false));
+
         guaranteePercent = 10_000; // 10% of sale price
         closeFee = 100; // 0.1% of sale price
         sellFee = 250; // 0.25% of sale price
