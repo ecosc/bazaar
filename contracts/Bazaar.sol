@@ -523,7 +523,7 @@ contract Bazaar is Ownable {
      * @dev filters orders by give filters
      */
     function fetchOrders(
-        uint256 fromID,
+        int256 fromID,
         uint256 maxLength,
         address buyer,
         address seller,
@@ -536,15 +536,11 @@ contract Bazaar is Ownable {
         uint256 count = 0;
         Order[] memory _upfrontOrders = new Order[](orders.length);
 
-        if (orders.length < 1) {
-            return _upfrontOrders;
+        if (fromID < 0) {
+            fromID = int256(orders.length);
         }
 
-        if (fromID == 0) {
-            fromID = orders.length;
-        }
-
-        for (int256 i = int256(fromID) - 1; i >= 0; i--) {
+        for (int256 i = fromID - 1; i >= 0; i--) {
             if (count >= maxLength) break;
 
             Order storage _order = orders[uint256(i)];
