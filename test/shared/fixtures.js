@@ -19,22 +19,24 @@ export async function erc20Fixture([wallet], provider) {
 }
 
 export async function profileFixture([wallet], provider) {
-    const profile = await deployContract(wallet, Profile, [], overrides)
+    const { token: ecoToken } = await erc20Fixture([wallet], provider);
+   
+    const profile = await deployContract(wallet, Profile, [ecoToken.address], overrides)
 
-    return { profile };
+    return { profile, ecoToken };
 }
 
 export async function bazaarFixture([wallet], provider) {
-    const { profile } = await profileFixture([wallet], provider);
+    const { profile, ecoToken } = await profileFixture([wallet], provider);
 
     const bazaar = await deployContract(wallet, Bazaar, [profile.address], overrides)
 
-    return { bazaar, profile };
+    return { bazaar, profile, ecoToken };
 }
 
 export async function fixtures([wallet], provider) {
-    const { bazaar, profile } = await bazaarFixture([wallet], provider);
+    const { bazaar, profile, ecoToken } = await bazaarFixture([wallet], provider);
     const { token } = await erc20Fixture([wallet], provider);
 
-    return { bazaar, profile, token };
+    return { bazaar, profile, token, ecoToken };
 }

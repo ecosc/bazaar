@@ -12,6 +12,7 @@ const INITIAL_CANCELLATION_FEE = BigNumber.from(100);
 const INITIAL_SELL_FEE = BigNumber.from(250);
 const INITIAL_BUY_FEE = BigNumber.from(250);
 const INITIAL_MAX_DELIVERY_TIME = BigNumber.from(8 * 60 * 60);
+const CREATE_PROFILE_FEE = expandTo18Decimals(10);
 const ORDER_STATES = {
     Placed: 0,
     Sold: 1,
@@ -39,6 +40,7 @@ describe('Bazaar', () => {
 
     let bazaar;
     let token;
+    let ecoToken;
     let profile;
     beforeEach(async () => {
         const fixture = await loadFixture(fixtures);
@@ -46,6 +48,7 @@ describe('Bazaar', () => {
         bazaar = fixture.bazaar;
         profile = fixture.profile;
         token = fixture.token;
+        ecoToken = fixture.ecoToken;
     })
 
     it("initial values be valid", async () => {
@@ -86,6 +89,9 @@ describe('Bazaar', () => {
     async function placeOrder(sourceAsset, sourceAmount, targetAsset, targetAmount, deadline) {
         const targetApproveAmount = targetAmount.mul(INITIAL_GUARANTEE_PERCENT).div(100000);
 
+        // approve eco token so profile contract can transfer
+        await ecoToken.approve(profile.address, CREATE_PROFILE_FEE);
+
         await profile.createAccount("Mamad", "http://mamad.org");
 
         // approve token so bazaar can transfer
@@ -100,6 +106,11 @@ describe('Bazaar', () => {
         await token.transfer(buyer.address, buyPrice);
         // approve token so bazaar can transfer
         await token.connect(buyer).approve(bazaar.address, buyPrice);
+
+        // transfer required amount of eco token to create account
+        await ecoToken.transfer(buyer.address, CREATE_PROFILE_FEE);
+        // approve eco token so profile contract can transfer
+        await ecoToken.connect(buyer).approve(profile.address, CREATE_PROFILE_FEE);
 
         // only profile owners can buy
         await profile.connect(buyer).createAccount("Samad", "http://samad.org");
@@ -171,13 +182,7 @@ describe('Bazaar', () => {
 
         await placeOrder(0, 100, token.address, orderPrice, 100);
 
-        // transfer required amount of token to buyer account
-        await token.transfer(other.address, buyPrice);
-        await token.connect(other).approve(bazaar.address, buyPrice);
-
-        await profile.connect(other).createAccount("Sammad", "http://sammad.org");
-
-        await expect(bazaar.connect(other).buy(0)).to.emit(bazaar, 'OrderSold').withArgs(BigNumber.from(0), other.address);
+        await buyOrder(other, buyPrice, 0);
 
         const order = await bazaar.orders(0);
 
@@ -195,15 +200,9 @@ describe('Bazaar', () => {
         const sellFee = orderPrice.mul(INITIAL_SELL_FEE).div(100000);
         const totalBuyPrice = orderPrice.add(buyFee);
 
-        await profile.connect(other).createAccount("Sammad", "http://sammad.org");
-
-        // transfer required amount of token to buyer account
-        await token.transfer(other.address, totalBuyPrice);
-        await token.connect(other).approve(bazaar.address, totalBuyPrice);
-
         await placeOrder(0, 100, token.address, orderPrice, 50);
 
-        await expect(bazaar.connect(other).buy(0)).to.emit(bazaar, 'OrderSold').withArgs(BigNumber.from(0), other.address);
+        await buyOrder(other, totalBuyPrice, 0);
         await expect(bazaar.approveDelivery(0)).to.be.revertedWith('BAZAAR: ONLY_BUYER');
         // await expect(bazaar.connect(other).approveDelivery(0)).to.be.revertedWith('BAZAAR: ORDER_DEADLINE_NOT_EXCEEDED');
 
