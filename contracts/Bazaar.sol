@@ -11,21 +11,19 @@ contract Bazaar is Ownable {
     using SafeMath for uint256;
 
     event OrderPlaced(uint256 indexed orderIdx, address indexed seller);
-    event OrderClosed(uint256 indexed orderIdx);
-    event OrderCancelledBuySeller(uint256 indexed orderIdx);
-    event OrderCancelledBuyBuyer(uint256 indexed orderIdx);
-    event OrderWithdrew(uint256 indexed orderIdx);
+    event OrderClosed(uint256 indexed orderIdx, address indexed seller);
+    event OrderCancelledBuySeller(uint256 indexed orderIdx, address indexed seller);
+    event OrderCancelledBuyBuyer(uint256 indexed orderIdx, address indexed buyer);
+    event OrderWithdrew(uint256 indexed orderIdx, address indexed seller);
     event OrderSold(uint256 indexed orderIdx, address indexed buyer);
-    event DeliveryApproved(uint256 indexed orderIdx);
+    event DeliveryApproved(uint256 indexed orderIdx, address indexed buyer);
 
     enum OrderState {
         Placed,
-        Soled,
-        Conflict,
+        Sold,
         Finished,
         Closed,
         Withdrew,
-        Expired,
         CancelledBySeller,
         CancelledByBuyer
     }
@@ -33,14 +31,6 @@ contract Bazaar is Ownable {
     struct SourceAsset {
         string symbol;
         bool deleted;
-    }
-
-    struct FetchFilters {
-        address buyer;
-        address seller;
-        OrderState[] states;
-        uint256 fromDate;
-        uint256 toDate;
     }
 
     struct Order {
@@ -128,7 +118,8 @@ contract Bazaar is Ownable {
 
     modifier cancellable(uint256 _orderIdx) {
         require(
-            (orders[_orderIdx].createdAt.add(maxDeliveryTime)) <= block.timestamp,
+            (orders[_orderIdx].createdAt.add(maxDeliveryTime)) <=
+                block.timestamp,
             "BAZAAR: ORDER_MAX_DELIVERY_NOT_EXCEEDED"
         );
         _;
@@ -136,11 +127,14 @@ contract Bazaar is Ownable {
 
     constructor(address _profileContract) {
         profileContract = _profileContract;
-        allowedSourceAssets.push(SourceAsset("GOLD", false));
+        allowedSourceAssets.push(SourceAsset("GOLD_OUNCE", false));
+        allowedSourceAssets.push(SourceAsset("SILVER_OUNCE", false));
+        allowedSourceAssets.push(SourceAsset("CARAT_GOLD_18", false));
+        allowedSourceAssets.push(SourceAsset("USDT", false));
         guaranteePercent = 10_000; // 10% of sale price
         closeFee = 100; // 0.1% of sale price
-        sellFee = 100; // 0.1% of sale price
-        buyFee = 100; // 0.1% of sale price
+        sellFee = 250; // 0.25% of sale price
+        buyFee = 250; // 0.25% of sale price
         cancellationFee = 100; // 0.1% of sale price
         feeToSetter = msg.sender;
         feeTo = msg.sender;
@@ -348,7 +342,7 @@ contract Bazaar is Ownable {
         // return rest of guarantee deposit
         TransferHelper.safeTransfer(order.targetAsset, order.seller, _toReturn);
 
-        emit OrderClosed(_orderIdx);
+        emit OrderClosed(_orderIdx, msg.sender);
     }
 
     /**
@@ -373,7 +367,7 @@ contract Bazaar is Ownable {
             _guaranteeAmount
         );
 
-        emit OrderWithdrew(_orderIdx);
+        emit OrderWithdrew(_orderIdx, msg.sender);
     }
 
     /**
@@ -388,7 +382,7 @@ contract Bazaar is Ownable {
     {
         Order storage order = orders[_orderIdx];
         order.buyer = msg.sender;
-        order.state = OrderState.Soled;
+        order.state = OrderState.Sold;
 
         uint256 _buyFee = calcBuyFee(_orderIdx);
 
@@ -411,7 +405,7 @@ contract Bazaar is Ownable {
         public
         validOrder(_orderIdx)
         onlyBuyer(_orderIdx)
-        inState(_orderIdx, OrderState.Soled)
+        inState(_orderIdx, OrderState.Sold)
     {
         Order storage order = orders[_orderIdx];
         order.state = OrderState.Finished;
@@ -436,7 +430,7 @@ contract Bazaar is Ownable {
             TransferHelper.safeTransfer(order.targetAsset, feeTo, _totalFee);
         }
 
-        emit DeliveryApproved(_orderIdx);
+        emit DeliveryApproved(_orderIdx, msg.sender);
     }
 
     /**
@@ -477,13 +471,13 @@ contract Bazaar is Ownable {
     }
 
     /**
-     * @dev seller cancels an order after soled
+     * @dev seller cancels an order after sold
      */
     function cancelForSeller(uint256 _orderIdx)
         public
         validOrder(_orderIdx)
         onlySeller(_orderIdx)
-        inState(_orderIdx, OrderState.Soled)
+        inState(_orderIdx, OrderState.Sold)
         cancellable(_orderIdx)
     {
         Order storage order = orders[_orderIdx];
@@ -492,7 +486,7 @@ contract Bazaar is Ownable {
 
         _cancelOrder(_orderIdx);
 
-        emit OrderCancelledBuySeller(_orderIdx);
+        emit OrderCancelledBuySeller(_orderIdx, msg.sender);
     }
 
     /**
@@ -502,7 +496,7 @@ contract Bazaar is Ownable {
         public
         validOrder(_orderIdx)
         onlyBuyer(_orderIdx)
-        inState(_orderIdx, OrderState.Soled)
+        inState(_orderIdx, OrderState.Sold)
         cancellable(_orderIdx)
     {
         Order storage order = orders[_orderIdx];
@@ -511,7 +505,7 @@ contract Bazaar is Ownable {
 
         _cancelOrder(_orderIdx);
 
-        emit OrderCancelledBuyBuyer(_orderIdx);
+        emit OrderCancelledBuyBuyer(_orderIdx, msg.sender);
     }
 
     /**
@@ -523,17 +517,30 @@ contract Bazaar is Ownable {
         address buyer,
         address seller,
         OrderState[] memory states,
+        uint256[] memory sourceAssets,
         uint256 fromDate,
         uint256 toDate,
-        uint256[] memory sourceAssets
+        bool withExpireds
     ) public view returns (Order[] memory) {
         uint256 count = 0;
         Order[] memory _upfrontOrders = new Order[](orders.length);
 
-        for (uint256 i = fromID - 1; i >= 0; i--) {
+        if (orders.length < 1) {
+            return _upfrontOrders;
+        }
+
+        if (fromID == 0) {
+            fromID = orders.length;
+        }
+
+        for (int256 i = int256(fromID) - 1; i >= 0; i--) {
             if (count >= maxLength) break;
 
-            Order storage _order = orders[i];
+            Order storage _order = orders[uint256(i)];
+
+            if (!withExpireds && (_order.deadline <= block.timestamp)) {
+                continue;
+            }
 
             if (buyer != address(0)) {
                 if (_order.buyer != buyer) {
@@ -579,13 +586,6 @@ contract Bazaar is Ownable {
                     if (_order.state == states[l]) {
                         found = true;
                         break;
-                    }
-
-                    // expired state is a virtual state
-                    if (states[l] == OrderState.Expired) {
-                        if (_order.deadline <= block.timestamp) {
-                            found = true;
-                        }
                     }
                 }
 

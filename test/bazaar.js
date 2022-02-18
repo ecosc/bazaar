@@ -9,19 +9,17 @@ chai.use(solidity);
 const INITIAL_GUARANTEE_PERCENT = BigNumber.from(10000);
 const INITIAL_CLOSE_FEE = BigNumber.from(100);
 const INITIAL_CANCELLATION_FEE = BigNumber.from(100);
-const INITIAL_SELL_FEE = BigNumber.from(100);
-const INITIAL_BUY_FEE = BigNumber.from(100);
+const INITIAL_SELL_FEE = BigNumber.from(250);
+const INITIAL_BUY_FEE = BigNumber.from(250);
 const INITIAL_MAX_DELIVERY_TIME = BigNumber.from(8 * 60 * 60);
 const ORDER_STATES = {
     Placed: 0,
-    Soled: 1,
-    Conflict: 2,
-    Finished: 3,
-    Closed: 4,
-    Withdrew: 5,
-    Expired: 6,
-    CancelledBySeller: 7,
-    CancelledByBuyer: 8
+    Sold: 1,
+    Finished: 2,
+    Closed: 3,
+    Withdrew: 4,
+    CancelledBySeller: 5,
+    CancelledByBuyer: 6
 };
 
 const { AddressZero } = constants;
@@ -154,7 +152,7 @@ describe('Bazaar', () => {
 
         await placeOrder(0, 100, token.address, orderPrice, 100);
 
-        await expect(bazaar.close(0)).to.emit(bazaar, 'OrderClosed').withArgs(BigNumber.from(0));
+        await expect(bazaar.close(0)).to.emit(bazaar, 'OrderClosed').withArgs(BigNumber.from(0), wallet.address);
 
         const closedOrder = await bazaar.orders(0);
 
@@ -183,7 +181,7 @@ describe('Bazaar', () => {
 
         const order = await bazaar.orders(0);
 
-        expect(order.state).to.eq(ORDER_STATES.Soled);
+        expect(order.state).to.eq(ORDER_STATES.Sold);
         expect(order.buyer).to.eq(other.address);
 
         expect(await token.balanceOf(wallet.address)).to.eq(TOKEN_INITIAL_LIQUIDITY.sub(buyPrice).sub(guaranteeAmount));
@@ -242,7 +240,7 @@ describe('Bazaar', () => {
         await provider.send("evm_increaseTime", [INITIAL_MAX_DELIVERY_TIME.add(101).toNumber()]);
         await provider.send("evm_mine");
 
-        await expect(bazaar.cancelForSeller(0)).to.emit(bazaar, 'OrderCancelledBuySeller').withArgs(BigNumber.from(0));
+        await expect(bazaar.cancelForSeller(0)).to.emit(bazaar, 'OrderCancelledBuySeller').withArgs(BigNumber.from(0), wallet.address);
 
         const cancelledOrder = await bazaar.orders(0);
 
@@ -275,7 +273,7 @@ describe('Bazaar', () => {
         await provider.send("evm_increaseTime", [INITIAL_MAX_DELIVERY_TIME.add(101).toNumber()]);
         await provider.send("evm_mine");
 
-        await expect(bazaar.connect(mother).cancelForBuyer(0)).to.emit(bazaar, 'OrderCancelledBuyBuyer').withArgs(BigNumber.from(0));
+        await expect(bazaar.connect(mother).cancelForBuyer(0)).to.emit(bazaar, 'OrderCancelledBuyBuyer').withArgs(BigNumber.from(0), mother.address);
 
         const cancelledOrder = await bazaar.orders(0);
 
