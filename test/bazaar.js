@@ -6,9 +6,9 @@ import { expandTo18Decimals } from './shared/utils';
 
 chai.use(solidity);
 
-const INITIAL_GUARANTEE_PERCENT = BigNumber.from(10000);
-const INITIAL_CLOSE_FEE = BigNumber.from(100);
-const INITIAL_CANCELLATION_FEE = BigNumber.from(100);
+const INITIAL_GUARANTEE_PERCENT = BigNumber.from(3500);
+const INITIAL_CLOSE_FEE = BigNumber.from(10);
+const INITIAL_CANCELLATION_FEE = BigNumber.from(2000);
 const INITIAL_SELL_FEE = BigNumber.from(250);
 const INITIAL_BUY_FEE = BigNumber.from(250);
 const INITIAL_MAX_DELIVERY_TIME = BigNumber.from(8 * 60 * 60);

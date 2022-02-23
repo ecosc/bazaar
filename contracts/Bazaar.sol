@@ -142,11 +142,11 @@ contract Bazaar is Ownable {
         allowedSourceAssets.push(SourceAsset('DIRHAM', false));
         allowedSourceAssets.push(SourceAsset('DINAR_IRAQI', false));
 
-        guaranteePercent = 10_000; // 10% of sale price
-        closeFee = 100; // 0.1% of sale price
+        guaranteePercent = 3_500; // 3.5% of sale price
+        closeFee = 10; // 0.01% of sale price
         sellFee = 250; // 0.25% of sale price
         buyFee = 250; // 0.25% of sale price
-        cancellationFee = 100; // 0.1% of sale price
+        cancellationFee = 2_000; // 2% of sale price
         feeToSetter = msg.sender;
         feeTo = msg.sender;
         maxDeliveryTime = 8 hours;
