@@ -186,7 +186,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -199,7 +200,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -212,7 +214,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -225,7 +228,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -238,7 +242,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -251,7 +256,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -264,7 +270,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -277,7 +284,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -341,7 +349,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -354,7 +363,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -367,7 +377,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -387,7 +398,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -771,7 +783,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_profileContract\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"orderIdx\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"buyer\",\"type\":\"address\"}],\"name\":\"DeliveryApproved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"orderIdx\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"buyer\",\"type\":\"address\"}],\"name\":\"OrderCancelledBuyBuyer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"orderIdx\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"}],\"name\":\"OrderCancelledBuySeller\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"orderIdx\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"}],\"name\":\"OrderClosed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"orderIdx\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"}],\"name\":\"OrderPlaced\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"orderIdx\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"buyer\",\"type\":\"address\"}],\"name\":\"OrderSold\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"orderIdx\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"}],\"name\":\"OrderWithdrew\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_symbol\",\"type\":\"string\"}],\"name\":\"addAllowedSourceAsset\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allowedSourceAssets\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"symbol\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"deleted\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_orderIdx\",\"type\":\"uint256\"}],\"name\":\"approveDelivery\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_orderIdx\",\"type\":\"uint256\"}],\"name\":\"buy\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"buyFee\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_orderIdx\",\"type\":\"uint256\"}],\"name\":\"cancelForBuyer\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_orderIdx\",\"type\":\"uint256\"}],\"name\":\"cancelForSeller\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cancellationFee\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_orderIdx\",\"type\":\"uint256\"}],\"name\":\"close\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"closeFee\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_idx\",\"type\":\"uint256\"}],\"name\":\"disableAllowedSourceAsset\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_idx\",\"type\":\"uint256\"}],\"name\":\"enableAllowedSourceAsset\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"feeTo\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"feeToSetter\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"int256\",\"name\":\"fromID\",\"type\":\"int256\"},{\"internalType\":\"uint256\",\"name\":\"maxLength\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"buyer\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"},{\"internalType\":\"enum Bazaar.OrderState[]\",\"name\":\"states\",\"type\":\"uint8[]\"},{\"internalType\":\"uint256[]\",\"name\":\"sourceAssets\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256\",\"name\":\"fromDate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"toDate\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"withExpireds\",\"type\":\"bool\"}],\"name\":\"fetchOrders\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"buyer\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"createdAt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"},{\"internalType\":\"enum Bazaar.OrderState\",\"name\":\"state\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"sourceAsset\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"targetAsset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"sourceAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"targetAmount\",\"type\":\"uint256\"}],\"internalType\":\"struct Bazaar.Order[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"guaranteePercent\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"maxDeliveryTime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"orders\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"buyer\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"createdAt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"},{\"internalType\":\"enum Bazaar.OrderState\",\"name\":\"state\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"sourceAsset\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"targetAsset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"sourceAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"targetAmount\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"sourceAsset\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"sourceAmount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"targetAsset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"targetAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"timeout\",\"type\":\"uint256\"}],\"name\":\"placeOrder\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"profileContract\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"sellFee\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"setBuyFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"setCancellationFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"setCloseFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_feeTo\",\"type\":\"address\"}],\"name\":\"setFeeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_feeToSetter\",\"type\":\"address\"}],\"name\":\"setFeeToSetter\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"setGuaranteePercent\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"setProfile\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"setSellFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_orderIdx\",\"type\":\"uint256\"}],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"addAllowedSourceAsset(string)\":{\"details\":\"add new allowed source asset\"},\"approveDelivery(uint256)\":{\"details\":\"buyer approves that recieved asset\"},\"buy(uint256)\":{\"details\":\"buy an asset\"},\"cancelForBuyer(uint256)\":{\"details\":\"buyer cancels an order after bought\"},\"cancelForSeller(uint256)\":{\"details\":\"seller cancels an order after sold\"},\"close(uint256)\":{\"details\":\"seller closes an order before its get expired\"},\"disableAllowedSourceAsset(uint256)\":{\"details\":\"disable allowed source asset\"},\"enableAllowedSourceAsset(uint256)\":{\"details\":\"enable allowed source asset\"},\"fetchOrders(int256,uint256,address,address,uint8[],uint256[],uint256,uint256,bool)\":{\"details\":\"filters orders by give filters\"},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"placeOrder(uint256,uint256,address,uint256,uint256)\":{\"details\":\"create a new order\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.\"},\"setBuyFee(uint256)\":{\"details\":\"set buy fee\"},\"setCancellationFee(uint256)\":{\"details\":\"set cancellation fee\"},\"setCloseFee(uint256)\":{\"details\":\"set close fee\"},\"setFeeTo(address)\":{\"details\":\"set fee to account\"},\"setFeeToSetter(address)\":{\"details\":\"set fee to setter account\"},\"setGuaranteePercent(uint256)\":{\"details\":\"set guarantee percent\"},\"setProfile(address)\":{\"details\":\"change profile contract address\"},\"setSellFee(uint256)\":{\"details\":\"set sell fee\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"},\"withdraw(uint256)\":{\"details\":\"withdraw guarantee amount for expired orders\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Bazaar.sol\":\"Bazaar\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":999999},\"remappings\":[]},\"sources\":{\"project:/contracts/Bazaar.sol\":{\"keccak256\":\"0x2925327d751704f3715266cef82ed2caa1fed7de9433c5c13b23c668449c22f4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://74ba395614c3264d5de67f093130b19a021f69b6490654b24f9599b80689645f\",\"dweb:/ipfs/QmPj5Z8hPCJt85AMWRex6xFe8KEJAhn4zrXcmBjP5hqxCt\"]},\"project:/contracts/interfaces/IERC20.sol\":{\"keccak256\":\"0x7c2219fbea8a8906b6b1020bc9847c72f3c4c5b0e92ccc1db47482eeb525e5a0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://e1ebec47ec41765da0688bcdd7cf24d1950681051729a79d23cab5c9cc1a8ba6\",\"dweb:/ipfs/QmS7yj9B14A2vMEH4UWQM97keDrakxXee5sbLVxU6B8Eh4\"]},\"project:/contracts/interfaces/IProfile.sol\":{\"keccak256\":\"0xb432b97a2ea0d3d244d13287b79938ff8316ee23e20618eda925aa1943e97c82\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b82fc456ddcca7dd7806ed999541abe0adb73a4d466b4728b3b2234335286afa\",\"dweb:/ipfs/QmY4KaS7bHFHrte58FA4bNrJF52ZcMPnzXNkRadALmKMeQ\"]},\"project:/contracts/libraries/Context.sol\":{\"keccak256\":\"0x0399450e78d5bd181e48934dfa86215bd1b3963ad593e35c41b759fe2fb06d44\",\"license\":\"GPL-3.0-or-later\",\"urls\":[\"bzz-raw://e09d466767dc4dba01ce27d0c1ac703a519edc29ca8f5db8ba3fe382538e654a\",\"dweb:/ipfs/QmQuKA7F6DbdLzbUTQkxZiHaXfoyP3hktcLUhjHjFzYDXN\"]},\"project:/contracts/libraries/Ownable.sol\":{\"keccak256\":\"0xa20b05b13c08a188c46f32d034246aefb584c818a5788c291476472692d56278\",\"license\":\"GPL-3.0-or-later\",\"urls\":[\"bzz-raw://f80c52a7054d28d4d1332878aacd78953b1159a162502de3a4608425cbfe0f7f\",\"dweb:/ipfs/QmRdYVPKvsymx743TnCWQ58Yswq2sVEJrCuXwgBPLrh285\"]},\"project:/contracts/libraries/SafeMath.sol\":{\"keccak256\":\"0x5f34d9ac0aa69f6d395b1f63b93aef3cf645bde71085b21d438b53823d0f1e92\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://a78f9e56aa4f5081a192ac616174b9b8791bb29d57ee62e75d59824a82ed2dee\",\"dweb:/ipfs/QmPrq6U2PnEjHsx1dpNphvX3Av3Y9Q6kW3QGBDpu283pFR\"]},\"project:/contracts/libraries/TransferHelper.sol\":{\"keccak256\":\"0x1ae29dd1bae7599e3edb3569264ecc398d261663f20b000dfb2dca97aa6b613c\",\"license\":\"GPL-3.0-or-later\",\"urls\":[\"bzz-raw://c287e5ba43a0c523e32a1996e47b7ec285d9621a4c25cbe76031deeb833d78da\",\"dweb:/ipfs/QmUtv8VquR7dFfFBjgZNa1E5rVgGJnK5fQBaNExDJPmSMm\"]}},\"version\":1}",
@@ -61165,8 +61178,8 @@
         }
       },
       "links": {},
-      "address": "0x6B8E7f36Fa7B0639591DCb2bbC652e646D8eC6B1",
-      "transactionHash": "0x0c3453f10700ac9cbb270c9d35f0d447930acc35214228e8786e30ad79548056"
+      "address": "0x9C9C7191286B8214ACE689c5Bed94d4c6EdbcD36",
+      "transactionHash": "0x94cc6fff371c47f89e8a3592982fc0d1b8a0a20eb50fdda23243ce8660f13fed"
     },
     "5777": {
       "events": {
@@ -61442,7 +61455,8 @@
     }
   },
   "schemaVersion": "3.4.4",
-  "updatedAt": "2022-02-23T13:18:24.586Z",
+  "updatedAt": "2022-02-23T13:26:00.841Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {
