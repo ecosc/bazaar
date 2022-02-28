@@ -141,6 +141,21 @@ contract Bazaar is Ownable {
         allowedSourceAssets.push(SourceAsset('MANAT', false));
         allowedSourceAssets.push(SourceAsset('DIRHAM', false));
         allowedSourceAssets.push(SourceAsset('DINAR_IRAQI', false));
+        allowedSourceAssets.push(SourceAsset('TURKISH_LIRA', false));
+        allowedSourceAssets.push(SourceAsset('POLYSTYRENE', false));
+        allowedSourceAssets.push(SourceAsset('BITUMEN', false));
+        allowedSourceAssets.push(SourceAsset('BASE_OIL', false));
+        allowedSourceAssets.push(SourceAsset('POLYPROPYLENE', false));
+        allowedSourceAssets.push(SourceAsset('HDPE', false));
+        allowedSourceAssets.push(SourceAsset('LDPE', false));
+        allowedSourceAssets.push(SourceAsset('NITRIC_ACID', false));
+        allowedSourceAssets.push(SourceAsset('SODIUM_HYDROXIDE', false));
+        allowedSourceAssets.push(SourceAsset('UREA', false));
+        allowedSourceAssets.push(SourceAsset('SODIUM_CARBONATE', false));
+        allowedSourceAssets.push(SourceAsset('SODIUM_SULFATE', false));
+        allowedSourceAssets.push(SourceAsset('PARAFFIN_WAX', false));
+        allowedSourceAssets.push(SourceAsset('EPOXY_RESIN', false));
+        allowedSourceAssets.push(SourceAsset('STYRENE', false));
 
         guaranteePercent = 3_500; // 3.5% of sale price
         closeFee = 10; // 0.01% of sale price
