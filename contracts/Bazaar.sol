@@ -12,8 +12,14 @@ contract Bazaar is Ownable {
 
     event OrderPlaced(uint256 indexed orderIdx, address indexed seller);
     event OrderClosed(uint256 indexed orderIdx, address indexed seller);
-    event OrderCancelledBuySeller(uint256 indexed orderIdx, address indexed seller);
-    event OrderCancelledBuyBuyer(uint256 indexed orderIdx, address indexed buyer);
+    event OrderCancelledBuySeller(
+        uint256 indexed orderIdx,
+        address indexed seller
+    );
+    event OrderCancelledBuyBuyer(
+        uint256 indexed orderIdx,
+        address indexed buyer
+    );
     event OrderWithdrew(uint256 indexed orderIdx, address indexed seller);
     event OrderSold(uint256 indexed orderIdx, address indexed buyer);
     event DeliveryApproved(uint256 indexed orderIdx, address indexed buyer);
@@ -127,35 +133,42 @@ contract Bazaar is Ownable {
 
     constructor(address _profileContract) {
         profileContract = _profileContract;
-        allowedSourceAssets.push(SourceAsset('GOLD_OUNCE', false));
-        allowedSourceAssets.push(SourceAsset('SILVER_OUNCE', false));
-        allowedSourceAssets.push(SourceAsset('CARAT_GOLD_18', false));
-        allowedSourceAssets.push(SourceAsset('CARAT_GOLD_24', false));
-        allowedSourceAssets.push(SourceAsset('GOLD_MESGHAL', false));
-        allowedSourceAssets.push(SourceAsset('GOLD_MELTED_CASH', false));
-        allowedSourceAssets.push(SourceAsset('MELTED_BANKING_GOLD', false));
-        allowedSourceAssets.push(SourceAsset('MELTED_GOLD', false));
-        allowedSourceAssets.push(SourceAsset('GOLD_COIN_CASH', false));
-        allowedSourceAssets.push(SourceAsset('GOLD_COIN', false));
-        allowedSourceAssets.push(SourceAsset('USD', false));
-        allowedSourceAssets.push(SourceAsset('MANAT', false));
-        allowedSourceAssets.push(SourceAsset('DIRHAM', false));
-        allowedSourceAssets.push(SourceAsset('DINAR_IRAQI', false));
-        allowedSourceAssets.push(SourceAsset('TURKISH_LIRA', false));
-        allowedSourceAssets.push(SourceAsset('POLYSTYRENE', false));
-        allowedSourceAssets.push(SourceAsset('BITUMEN', false));
-        allowedSourceAssets.push(SourceAsset('BASE_OIL', false));
-        allowedSourceAssets.push(SourceAsset('POLYPROPYLENE', false));
-        allowedSourceAssets.push(SourceAsset('HDPE', false));
-        allowedSourceAssets.push(SourceAsset('LDPE', false));
-        allowedSourceAssets.push(SourceAsset('NITRIC_ACID', false));
-        allowedSourceAssets.push(SourceAsset('SODIUM_HYDROXIDE', false));
-        allowedSourceAssets.push(SourceAsset('UREA', false));
-        allowedSourceAssets.push(SourceAsset('SODIUM_CARBONATE', false));
-        allowedSourceAssets.push(SourceAsset('SODIUM_SULFATE', false));
-        allowedSourceAssets.push(SourceAsset('PARAFFIN_WAX', false));
-        allowedSourceAssets.push(SourceAsset('EPOXY_RESIN', false));
-        allowedSourceAssets.push(SourceAsset('STYRENE', false));
+        allowedSourceAssets.push(SourceAsset("GOLD_OUNCE", false));
+        allowedSourceAssets.push(SourceAsset("SILVER_OUNCE", false));
+        allowedSourceAssets.push(SourceAsset("CARAT_GOLD_18", false));
+        allowedSourceAssets.push(SourceAsset("CARAT_GOLD_24", false));
+        allowedSourceAssets.push(SourceAsset("GOLD_MESGHAL", false));
+        allowedSourceAssets.push(SourceAsset("GOLD_MELTED_CASH", false));
+        allowedSourceAssets.push(SourceAsset("MELTED_BANKING_GOLD", false));
+        allowedSourceAssets.push(SourceAsset("MELTED_GOLD", false));
+        allowedSourceAssets.push(SourceAsset("GOLD_COIN_CASH", false));
+        allowedSourceAssets.push(SourceAsset("GOLD_COIN", false));
+        allowedSourceAssets.push(SourceAsset("USD", false));
+        allowedSourceAssets.push(SourceAsset("MANAT", false));
+        allowedSourceAssets.push(SourceAsset("DIRHAM", false));
+        allowedSourceAssets.push(SourceAsset("DINAR_IRAQI", false));
+        allowedSourceAssets.push(SourceAsset("TURKISH_LIRA", false));
+        allowedSourceAssets.push(SourceAsset("POLYSTYRENE", false));
+        allowedSourceAssets.push(SourceAsset("BITUMEN", false));
+        allowedSourceAssets.push(SourceAsset("BASE_OIL", false));
+        allowedSourceAssets.push(SourceAsset("POLYPROPYLENE", false));
+        allowedSourceAssets.push(SourceAsset("HDPE", false));
+        allowedSourceAssets.push(SourceAsset("LDPE", false));
+        allowedSourceAssets.push(SourceAsset("NITRIC_ACID", false));
+        allowedSourceAssets.push(SourceAsset("SODIUM_HYDROXIDE", false));
+        allowedSourceAssets.push(SourceAsset("UREA", false));
+        allowedSourceAssets.push(SourceAsset("SODIUM_CARBONATE", false));
+        allowedSourceAssets.push(SourceAsset("SODIUM_SULFATE", false));
+        allowedSourceAssets.push(SourceAsset("PARAFFIN_WAX", false));
+        allowedSourceAssets.push(SourceAsset("EPOXY_RESIN", false));
+        allowedSourceAssets.push(SourceAsset("STYRENE", false));
+        allowedSourceAssets.push(SourceAsset("STEEL", false));
+        allowedSourceAssets.push(SourceAsset("IRON_ORE", false));
+        allowedSourceAssets.push(SourceAsset("CONCENTRATE", false));
+        allowedSourceAssets.push(SourceAsset("IRON_PELLET", false));
+        allowedSourceAssets.push(SourceAsset("COPPER", false));
+        allowedSourceAssets.push(SourceAsset("ZINC", false));
+        allowedSourceAssets.push(SourceAsset("ALUMINIUM", false));
 
         guaranteePercent = 3_500; // 3.5% of sale price
         closeFee = 10; // 0.01% of sale price
@@ -625,5 +638,82 @@ contract Bazaar is Ownable {
         }
 
         return _orders;
+    }
+
+    function sellerMetrics(address seller)
+        public
+        view
+        returns (
+            uint256 totalSaleOrders,
+            uint256 soldOrders,
+            uint256 deliveredOrders,
+            uint256 cancelledSeller,
+            uint256 cancelledBuyer
+        )
+    {
+        for (uint256 i = 0; i < orders.length; i++) {
+            Order storage _order = orders[uint256(i)];
+
+            if (_order.seller != seller) {
+                continue;
+            }
+
+            totalSaleOrders++;
+
+            if (_order.state == OrderState.Sold) {
+                soldOrders++;
+            }
+
+            if (_order.state == OrderState.Finished) {
+                deliveredOrders++;
+            }
+
+            if (_order.state == OrderState.CancelledBySeller) {
+                cancelledSeller++;
+            }
+
+            if (_order.state == OrderState.CancelledByBuyer) {
+                cancelledBuyer++;
+            }
+        }
+
+        soldOrders += cancelledBuyer + cancelledSeller + deliveredOrders;
+    }
+
+    function buyerMetrics(address buyer)
+        public
+        view
+        returns (
+            uint256 boughtOrders,
+            uint256 deliveredOrders,
+            uint256 cancelledSeller,
+            uint256 cancelledBuyer
+        )
+    {
+        for (uint256 i = 0; i < orders.length; i++) {
+            Order storage _order = orders[uint256(i)];
+
+            if (_order.buyer != buyer) {
+                continue;
+            }
+
+            if (_order.state == OrderState.Sold) {
+                boughtOrders++;
+            }
+
+            if (_order.state == OrderState.Finished) {
+                deliveredOrders++;
+            }
+
+            if (_order.state == OrderState.CancelledBySeller) {
+                cancelledSeller++;
+            }
+
+            if (_order.state == OrderState.CancelledByBuyer) {
+                cancelledBuyer++;
+            }
+        }
+
+        boughtOrders += cancelledSeller + cancelledBuyer + deliveredOrders;
     }
 }
