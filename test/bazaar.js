@@ -12,7 +12,7 @@ const INITIAL_CANCELLATION_FEE = BigNumber.from(2000);
 const INITIAL_SELL_FEE = BigNumber.from(250);
 const INITIAL_BUY_FEE = BigNumber.from(250);
 const INITIAL_MAX_DELIVERY_TIME = BigNumber.from(8 * 60 * 60);
-const CREATE_PROFILE_FEE = expandTo18Decimals(10);
+const CREATE_PROFILE_FEE = expandTo18Decimals(50);
 const ORDER_STATES = {
     Placed: 0,
     Sold: 1,

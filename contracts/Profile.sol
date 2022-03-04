@@ -31,7 +31,7 @@ contract Profile is Ownable {
         feeTokenAddress = _feeTokenAddress;
         feeToSetter = msg.sender;
         feeTo = msg.sender;
-        fee = 10 * 10**18;
+        fee = 50 * 10**18;
     }
 
     /**
