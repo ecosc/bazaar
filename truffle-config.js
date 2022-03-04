@@ -60,16 +60,14 @@ module.exports = {
       network_id: 97,
       confirmations: 5,
       timeoutBlocks: 200,
-      skipDryRun: true,
-      production: true
+      skipDryRun: true
     },
     bsc: {
       provider: () => new HDWalletProvider(process.env.BSC_DEPLOYER_KEY, `https://bsc-dataseed1.binance.org`),
       network_id: 56,
-      confirmations: 10,
+      confirmations: 2,
       timeoutBlocks: 200,
-      skipDryRun: true,
-      production: true
+      skipDryRun: true
     },
     // Another network with more advanced options...
     // advanced: {
@@ -106,17 +104,33 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
+      //https://forum.openzeppelin.com/t/how-to-deploy-uniswapv2-on-ganache/3885
       version: "0.8.11",    // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       settings: {          // See the solidity docs for advice about optimization and evmVersion
         optimizer: {
-          enabled: false,
+          enabled: true,
           runs: 999999
         },
-        //  evmVersion: "byzantium"
+        evmVersion: "istanbul",
+        outputSelection: {
+          "*": {
+            "": [
+              "ast"
+            ],
+            "*": [
+              "evm.bytecode.object",
+              "evm.deployedBytecode.object",
+              "abi",
+              "evm.bytecode.sourceMap",
+              "evm.deployedBytecode.sourceMap",
+              "metadata"
+            ]
+          },
+        }
       }
-    }
-  },
+    },
+  }
 
   // Truffle DB is currently disabled by default; to enable it, change enabled:
   // false to enabled: true. The default storage location can also be

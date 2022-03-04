@@ -7,7 +7,9 @@
     "test": "mocha",
     "build": "truffle compile",
     "migrate:bscTestnet": "truffle migrate --network bscTestnet",
-    "verify:bscTestnet": "truffle run verify Bazaar --network bscTestnet"
+    "migrate:bsc": "truffle migrate --network bsc",
+    "verify:bscTestnet": "truffle run verify Bazaar --network bscTestnet",
+    "verify:bsc": "truffle run verify Bazaar --network bsc"
   },
   "author": "",
   "license": "ISC",

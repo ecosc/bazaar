@@ -103,6 +103,10 @@ contract Profile is Ownable {
         accounts[account].state = UserState.Inactive;
     }
 
+    function enableAccount(address account) public onlyOwner {
+        accounts[account].state = UserState.Active;
+    }
+
     function registered(address account) public view returns (bool) {
         return accounts[account].state == UserState.Active;
     }
